@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use DateTimeInterface;
-use DateTimeImmutable;
 
 trait Timestamp
 {
@@ -17,11 +16,6 @@ trait Timestamp
      * @ORM\Column(type="datetime", nullable=true)
      */
     private DateTimeInterface $updateAt;
-
-    public function __construct()
-    {
-        return $this->createdAt = new DateTimeImmutable();
-    }
 
     public function getCreatedAt(): DateTimeInterface
     {
