@@ -7,27 +7,27 @@ use DateTimeInterface;
 trait Timestamp
 {
     /**
-     * @var DateTimeInterface
+     * @var \DateTimeInterface
      * @ORM\Column(type="datetime")
     */
-    private DateTimeInterface $createdAt;
+    private \DateTimeInterface $createdAt;
     /**
-     * @var DateTimeInterface
+     * @var \DateTimeInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private DateTimeInterface $updateAt;
+    private ?\DateTimeInterface $updateAt;
 
-    public function getCreatedAt(): DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function getUpdateAt(): DateTimeInterface
+    public function getUpdateAt(): ?\DateTimeInterface
     {
         return $this->updateAt;
     }
 
-    public function setUpdateAt(DateTimeInterface $updateAt)
+    public function setUpdateAt(?\DateTimeInterface $updateAt)
     {
         $this->updateAt = $updateAt;
         return $this;

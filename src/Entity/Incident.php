@@ -50,6 +50,12 @@ class Incident
      */
     private bool $f_positive;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Criterion::class, inversedBy="incidents")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private Criterion $criterion;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -116,6 +122,18 @@ class Incident
     public function setFPositive(bool $f_positive): self
     {
         $this->f_positive = $f_positive;
+
+        return $this;
+    }
+
+    public function getCriterion(): ?Criterion
+    {
+        return $this->criterion;
+    }
+
+    public function setCriterion(?Criterion $criterion): self
+    {
+        $this->criterion = $criterion;
 
         return $this;
     }

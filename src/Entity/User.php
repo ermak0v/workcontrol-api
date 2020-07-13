@@ -63,11 +63,17 @@ class User implements UserInterface
         $this->myIncidents = new ArrayCollection();
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getEmail(): ?string
     {
         return $this->email;
