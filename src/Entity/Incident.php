@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *
+ * )
  * @ORM\Entity(repositoryClass=IncidentRepository::class)
  */
 class Incident
