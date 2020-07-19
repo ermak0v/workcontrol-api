@@ -5,12 +5,29 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\IncidentRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ApiResource(
- *
+ *     collectionOperations={
+ *          "get",
+ *          "post",
+ *          "getSent"={
+ *              "method"="GET",
+ *              "path"="/incidents/sent",
+ *          }
+ *     },
+ *     itemOperations={
+ *          "get",
+ *          "patch",
+ *          "delete"={
+ *              "method"="PATCH",
+ *              "path"="/incidents/{id}/delete",
+ *          }
+ *     }
  * )
  * @ORM\Entity(repositoryClass=IncidentRepository::class)
  */
@@ -58,9 +75,21 @@ class Incident
      */
     private Criterion $criterion;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Log::class, mappedBy="incident")
+     */
+    private Collection $logs;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $f_delete;
+
     public function __construct()
     {
+        $this->f_delete = false;
         $this->createdAt = new DateTimeImmutable();
+        $this->logs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,6 +165,49 @@ class Incident
     public function setCriterion(?Criterion $criterion): self
     {
         $this->criterion = $criterion;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Log[]
+     */
+    public function getLogs(): Collection
+    {
+        return $this->logs;
+    }
+
+    public function addLog(Log $log): self
+    {
+        if (!$this->logs->contains($log)) {
+            $this->logs[] = $log;
+            $log->setIncident($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLog(Log $log): self
+    {
+        if ($this->logs->contains($log)) {
+            $this->logs->removeElement($log);
+            // set the owning side to null (unless already changed)
+            if ($log->getIncident() === $this) {
+                $log->setIncident(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFDelete(): ?bool
+    {
+        return $this->f_delete;
+    }
+
+    public function setFDelete(bool $f_delete): self
+    {
+        $this->f_delete = $f_delete;
 
         return $this;
     }

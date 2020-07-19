@@ -11,7 +11,10 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use DateTimeImmutable;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={"get"}
+ * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User implements UserInterface

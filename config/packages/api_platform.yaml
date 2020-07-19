@@ -5,6 +5,9 @@ api_platform:
         jsonapi:
             mime_types:
                 - application/vnd.api+json
+        html:
+            mime_types:
+                - text/html
 
     swagger:
         versions: [3]
