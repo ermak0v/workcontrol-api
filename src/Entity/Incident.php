@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Controller\SentIncidents;
 
 /**
  * @ApiResource(
@@ -18,6 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *          "getSent"={
  *              "method"="GET",
  *              "path"="/incidents/sent",
+ *              "controller": SentIncidents::class
  *          }
  *     },
  *     itemOperations={

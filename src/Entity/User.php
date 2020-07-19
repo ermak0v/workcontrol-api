@@ -155,6 +155,7 @@ class User implements UserInterface
     }
 
     /**
+     * @see UserInterface
      * @return Collection|Incident[]
      */
     public function getIncidents(): Collection
