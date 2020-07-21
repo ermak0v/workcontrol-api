@@ -10,17 +10,22 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Controller\SentIncidents;
+use App\Controller\Incidents;
 
 /**
  * @ApiResource(
  *     collectionOperations={
- *          "get",
+ *          "get"={
+ *              "method"="GET",
+ *              "path"="/incidents",
+ *              "controller": Incidents::class
+ *          },
  *          "post",
  *          "getSent"={
  *              "method"="GET",
  *              "path"="/incidents/sent",
  *              "controller": SentIncidents::class
- *          }
+ *          },
  *     },
  *     itemOperations={
  *          "get",
@@ -28,7 +33,11 @@ use App\Controller\SentIncidents;
  *          "delete"={
  *              "method"="PATCH",
  *              "path"="/incidents/{id}/delete",
- *          }
+ *          },
+ *          "moderate"={
+ *              "method"="PATCH",
+ *              "path"="/incidents/{id}/moderate",
+ *          },
  *     }
  * )
  * @ORM\Entity(repositoryClass=IncidentRepository::class)
@@ -87,9 +96,15 @@ class Incident
      */
     private bool $f_delete;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $f_moder;
+
     public function __construct()
     {
         $this->f_delete = false;
+        $this->f_moder = false;
         $this->createdAt = new DateTimeImmutable();
         $this->logs = new ArrayCollection();
     }
@@ -210,6 +225,18 @@ class Incident
     public function setFDelete(bool $f_delete): self
     {
         $this->f_delete = $f_delete;
+
+        return $this;
+    }
+
+    public function getFModer(): ?bool
+    {
+        return $this->f_moder;
+    }
+
+    public function setFModer(bool $f_moder): self
+    {
+        $this->f_moder = $f_moder;
 
         return $this;
     }

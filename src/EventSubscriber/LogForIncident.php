@@ -6,20 +6,22 @@ namespace App\EventSubscriber;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Incident;
 use App\Entity\Log;
-use DateTimeImmutable;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class LogForIncident implements EventSubscriberInterface
 {
     private EntityManagerInterface $entityManager;
+    private Security $security;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, Security $security)
     {
         $this->entityManager = $entityManager;
+        $this->security = $security;
     }
     public static function getSubscribedEvents()
     {
@@ -36,7 +38,13 @@ class LogForIncident implements EventSubscriberInterface
         if ($incident instanceof Incident && Request::METHOD_POST === $method){
             $log = new Log();
             $log->setAction('create')
-                ->setIncident($incident);
+                ->setIncident($incident)
+                ->setTarget($incident->getTarget())
+                ->setCriterion($incident->getCriterion())
+                ->setDescription($incident->getDescription())
+                ->setProof($incident->getProof())
+                ->setFPositive($incident->getFPositive())
+                ->setCreator($this->security->getUser());
 
             $this->entityManager->persist($log);
             $this->entityManager->flush();
@@ -45,7 +53,13 @@ class LogForIncident implements EventSubscriberInterface
         if ($incident instanceof Incident && Request::METHOD_PATCH === $method && $route === '/api/incidents/'.$incident->getId()){
             $log = new Log();
             $log->setAction('update')
-                ->setIncident($incident);
+                ->setIncident($incident)
+                ->setTarget($incident->getTarget())
+                ->setCriterion($incident->getCriterion())
+                ->setDescription($incident->getDescription())
+                ->setProof($incident->getProof())
+                ->setFPositive($incident->getFPositive())
+                ->setCreator($this->security->getUser());
 
             $incident->setUpdateAt($log->getCreatedAt());
 
@@ -56,9 +70,32 @@ class LogForIncident implements EventSubscriberInterface
         if ($incident instanceof Incident && Request::METHOD_PATCH === $method && $route === '/api/incidents/'.$incident->getId().'delete'){
             $log = new Log();
             $log->setAction('delete')
-                ->setIncident($incident);
+                ->setIncident($incident)
+                ->setTarget($incident->getTarget())
+                ->setCriterion($incident->getCriterion())
+                ->setDescription($incident->getDescription())
+                ->setProof($incident->getProof())
+                ->setFPositive($incident->getFPositive())
+                ->setCreator($this->security->getUser());
 
             $incident->setFDelete(true);
+
+            $this->entityManager->persist($log);
+            $this->entityManager->flush();
+        }
+
+        if ($incident instanceof Incident && Request::METHOD_PATCH === $method && $route === '/api/incidents/'.$incident->getId().'moderate'){
+            $log = new Log();
+            $log->setAction('moderate')
+                ->setIncident($incident)
+                ->setTarget($incident->getTarget())
+                ->setCriterion($incident->getCriterion())
+                ->setDescription($incident->getDescription())
+                ->setProof($incident->getProof())
+                ->setFPositive($incident->getFPositive())
+                ->setCreator($this->security->getUser());
+
+            $incident->setFModer(true);
 
             $this->entityManager->persist($log);
             $this->entityManager->flush();

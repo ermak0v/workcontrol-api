@@ -9,10 +9,19 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
 use DateTimeImmutable;
+use App\Controller\Workers;
 
 /**
  * @ApiResource(
- *     collectionOperations={"get", "post"},
+ *     collectionOperations={
+ *          "get",
+ *          "post",
+ *          "getWorkers"={
+ *              "method"="GET",
+ *              "path"="/users/workers",
+ *              "controller": Workers::class
+ *          }
+ *     },
  *     itemOperations={"get"}
  * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -59,11 +68,22 @@ class User implements UserInterface
      */
     private Collection $myIncidents;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Department::class, inversedBy="users")
+     */
+    private Department $department;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Log::class, mappedBy="creator")
+     */
+    private Collection $logs;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
         $this->incidents = new ArrayCollection();
         $this->myIncidents = new ArrayCollection();
+        $this->logs = new ArrayCollection();
     }
 
     /**
@@ -109,8 +129,6 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -211,6 +229,52 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($myIncident->getTarget() === $this) {
                 $myIncident->setTarget(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?Department $department): self
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Log[]
+     */
+    public function getLogs(): Collection
+    {
+        return $this->logs;
+    }
+
+    public function addLog(Log $log): self
+    {
+        if (!$this->logs->contains($log)) {
+            $this->logs[] = $log;
+            $log->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLog(Log $log): self
+    {
+        if ($this->logs->contains($log)) {
+            $this->logs->removeElement($log);
+            // set the owning side to null (unless already changed)
+            if ($log->getCreator() === $this) {
+                $log->setCreator(null);
             }
         }
 
