@@ -101,6 +101,11 @@ class Incident
      */
     private bool $f_moder;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $f_epic;
+
     public function __construct()
     {
         $this->f_delete = false;
@@ -237,6 +242,18 @@ class Incident
     public function setFModer(bool $f_moder): self
     {
         $this->f_moder = $f_moder;
+
+        return $this;
+    }
+
+    public function getFEpic(): ?bool
+    {
+        return $this->f_epic;
+    }
+
+    public function setFEpic(bool $f_epic): self
+    {
+        $this->f_epic = $f_epic;
 
         return $this;
     }
