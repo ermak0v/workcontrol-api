@@ -3,12 +3,11 @@
 
 namespace App\Controller;
 
-
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class SentIncidents
+class SentIncidents extends AbstractController
 {
     private Security $security;
     private EntityManagerInterface $em;
@@ -19,8 +18,14 @@ class SentIncidents
         $this->em = $em;
     }
 
-    public function __invoke(): Collection
+    public function __invoke()
     {
-        return $this->security->getUser()->getIncidents();
+        $user = $this->security->getUser();
+
+        return $this->getDoctrine()
+            ->getRepository('App:Incident')->findBy(
+                ['author' => $user],
+                ['createdAt' => 'DESC']
+            );
     }
 }

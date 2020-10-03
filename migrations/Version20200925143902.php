@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200915133304 extends AbstractMigration
+final class Version20200925143902 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,7 +20,7 @@ final class Version20200915133304 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE criterion (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE criterion (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, small_name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE department (id INT AUTO_INCREMENT NOT NULL, head_id INT NOT NULL, name VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_CD1DE18AF41A619E (head_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE incident (id INT AUTO_INCREMENT NOT NULL, author_id INT NOT NULL, target_id INT NOT NULL, criterion_id INT NOT NULL, description LONGTEXT NOT NULL, proof LONGTEXT NOT NULL, f_positive TINYINT(1) NOT NULL, f_delete TINYINT(1) NOT NULL, f_moder TINYINT(1) NOT NULL, f_epic TINYINT(1) NOT NULL, created_at DATETIME NOT NULL, update_at DATETIME DEFAULT NULL, INDEX IDX_3D03A11AF675F31B (author_id), INDEX IDX_3D03A11A158E0B66 (target_id), INDEX IDX_3D03A11A97766307 (criterion_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE log (id INT AUTO_INCREMENT NOT NULL, incident_id INT NOT NULL, creator_id INT NOT NULL, target_id INT NOT NULL, criterion_id INT NOT NULL, action VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, proof LONGTEXT NOT NULL, f_positive TINYINT(1) NOT NULL, created_at DATETIME NOT NULL, update_at DATETIME DEFAULT NULL, INDEX IDX_8F3F68C559E53FB9 (incident_id), INDEX IDX_8F3F68C561220EA6 (creator_id), INDEX IDX_8F3F68C5158E0B66 (target_id), INDEX IDX_8F3F68C597766307 (criterion_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

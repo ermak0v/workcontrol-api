@@ -20,7 +20,8 @@ class AuthenticationSuccessListener
             'id' => $user->getId(),
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
-            'roles' => $user->getRoles()[0]
+            'roles' => $user->getRoles()[0],
+            'department' => $user->getDepartment()->getId(),
         );
 
         $event->setData($data);

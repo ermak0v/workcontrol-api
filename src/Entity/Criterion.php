@@ -34,6 +34,11 @@ class Criterion
      */
     private Collection $incidents;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $small_name;
+
     public function __construct()
     {
         $this->incidents = new ArrayCollection();
@@ -83,6 +88,18 @@ class Criterion
                 $incident->setCriterion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSmallName(): ?string
+    {
+        return $this->small_name;
+    }
+
+    public function setSmallName(string $small_name): self
+    {
+        $this->small_name = $small_name;
 
         return $this;
     }

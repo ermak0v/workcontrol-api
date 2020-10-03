@@ -3,8 +3,6 @@
 
 namespace App\Controller;
 
-
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
@@ -28,17 +26,21 @@ class Incidents extends AbstractController
         if ($role === 'ROLE_ADMIN') {
             return $this->getDoctrine()
                 ->getRepository('App:Incident')
-                ->findAll();
+                ->findBy([],
+                    ['createdAt' => 'DESC']
+                );
         } else if ($role === 'ROLE_HEAD') {
-            $authors = $this->getDoctrine()
+            $target = $this->getDoctrine()
                 ->getRepository('App:User')
                 ->findBy(
-                    ['department' => $department]
+                    ['department' => $department],
+                    ['createdAt' => 'DESC']
                 );
             return $this->getDoctrine()
                 ->getRepository('App:Incident')
                 ->findBy(
-                    ['author' => $authors]
+                    ['target' => $target],
+                    ['createdAt' => 'DESC'],
                 );
         } else {
             return null;
