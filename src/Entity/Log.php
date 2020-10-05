@@ -77,6 +77,16 @@ class Log
      */
     private bool $f_positive;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $f_epic;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private ?bool $f_moder;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -179,6 +189,30 @@ class Log
     public function setFPositive(bool $f_positive): self
     {
         $this->f_positive = $f_positive;
+
+        return $this;
+    }
+
+    public function getFEpic(): ?bool
+    {
+        return $this->f_epic;
+    }
+
+    public function setFEpic(bool $f_epic): self
+    {
+        $this->f_epic = $f_epic;
+
+        return $this;
+    }
+
+    public function getFModer(): ?bool
+    {
+        return $this->f_moder;
+    }
+
+    public function setFModer(?bool $f_moder): self
+    {
+        $this->f_moder = $f_moder;
 
         return $this;
     }

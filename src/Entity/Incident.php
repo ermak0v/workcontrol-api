@@ -38,6 +38,10 @@ use App\Controller\Incidents;
  *              "method"="PATCH",
  *              "path"="/incidents/{id}/moderate",
  *          },
+ *          "no-moderate"={
+ *              "method"="PATCH",
+ *              "path"="/incidents/{id}/no-moderate",
+ *          },
  *     }
  * )
  * @ORM\Entity(repositoryClass=IncidentRepository::class)
@@ -97,9 +101,9 @@ class Incident
     private bool $f_delete;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private bool $f_moder;
+    private ?bool $f_moder;
 
     /**
      * @ORM\Column(type="boolean")
@@ -109,7 +113,6 @@ class Incident
     public function __construct()
     {
         $this->f_delete = false;
-        $this->f_moder = false;
         $this->createdAt = new DateTimeImmutable();
         $this->logs = new ArrayCollection();
     }
@@ -239,7 +242,7 @@ class Incident
         return $this->f_moder;
     }
 
-    public function setFModer(bool $f_moder): self
+    public function setFModer(?bool $f_moder): self
     {
         $this->f_moder = $f_moder;
 
