@@ -21,7 +21,7 @@ class LogsUpdateModerate extends AbstractController
 
         if ($role === 'ROLE_ADMIN' || $role === 'ROLE_HEAD') {
             return $this->getDoctrine()
-                ->getRepository('App:Log')
+                ->getRepository('Lokr:Log')
                 ->findBy(
                     ['action' => ['update', 'moderate', 'delete', 'create']],
                     ['createdAt' => 'DESC']

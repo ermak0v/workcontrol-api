@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Criterion;
+use App\Entity\Lokr\Criterion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

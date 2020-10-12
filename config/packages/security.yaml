@@ -1,12 +1,12 @@
 security:
     encoders:
-        App\Entity\User:
+        App\Entity\Lokr\User:
             algorithm: argon2i
 
     providers:
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Lokr\User
                 property: email
 
     firewalls:

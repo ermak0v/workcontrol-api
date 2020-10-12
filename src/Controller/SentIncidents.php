@@ -23,7 +23,7 @@ class SentIncidents extends AbstractController
         $user = $this->security->getUser();
 
         return $this->getDoctrine()
-            ->getRepository('App:Incident')->findBy(
+            ->getRepository('Lokr:Incident')->findBy(
                 ['author' => $user],
                 ['createdAt' => 'DESC']
             );

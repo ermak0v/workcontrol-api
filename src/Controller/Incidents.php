@@ -25,19 +25,19 @@ class Incidents extends AbstractController
 
         if ($role === 'ROLE_ADMIN') {
             return $this->getDoctrine()
-                ->getRepository('App:Incident')
+                ->getRepository('Lokr:Incident')
                 ->findBy([],
                     ['createdAt' => 'DESC']
                 );
         } else if ($role === 'ROLE_HEAD') {
             $target = $this->getDoctrine()
-                ->getRepository('App:User')
+                ->getRepository('Lokr:User')
                 ->findBy(
                     ['department' => $department],
                     ['createdAt' => 'DESC']
                 );
             return $this->getDoctrine()
-                ->getRepository('App:Incident')
+                ->getRepository('Lokr:Incident')
                 ->findBy(
                     ['target' => $target],
                     ['createdAt' => 'DESC'],

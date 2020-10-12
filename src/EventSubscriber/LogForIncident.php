@@ -4,8 +4,8 @@
 namespace App\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
-use App\Entity\Incident;
-use App\Entity\Log;
+use App\Entity\Lokr\Incident;
+use App\Entity\Lokr\Log;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelEvents;

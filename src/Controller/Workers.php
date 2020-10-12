@@ -10,7 +10,7 @@ class Workers extends AbstractController
     public function __invoke()
     {
         return $this->getDoctrine()
-            ->getRepository('App:User')
+            ->getRepository('Lokr:User')
             ->findUsersByRole('ROLE_USER');
     }
 }

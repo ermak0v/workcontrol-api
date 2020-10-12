@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Criterion;
+use App\Entity\Lokr\Criterion;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 

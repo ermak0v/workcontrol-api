@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Incident;
+use App\Entity\Lokr\Incident;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
