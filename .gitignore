@@ -3,8 +3,6 @@
 /.env.local
 /.env.local.php
 /.env.*.local
-/.env.$DATABASE_URL
-/.env.$DATABASE_PROJECTS_URL
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/

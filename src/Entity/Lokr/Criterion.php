@@ -3,7 +3,7 @@
 namespace App\Entity\Lokr;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CriterionRepository;
+use App\Repository\Lokr\CriterionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

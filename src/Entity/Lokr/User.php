@@ -2,7 +2,7 @@
 
 namespace App\Entity\Lokr;
 
-use App\Repository\UserRepository;
+use App\Repository\Lokr\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -43,9 +43,14 @@ class User implements UserInterface
     private string $username;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true, nullable=true)
      */
     private string $email;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private string $login;
 
     /**
      * @ORM\Column(type="json")
@@ -105,6 +110,21 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getLogin(): ?string
+    {
+        return $this->login;
+    }
+
+    public function setLogin(string $login): self
+    {
+        $this->login = $login;
 
         return $this;
     }

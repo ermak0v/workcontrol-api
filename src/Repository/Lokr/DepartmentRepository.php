@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Lokr;
 
 use App\Entity\Lokr\Department;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

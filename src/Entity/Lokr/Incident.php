@@ -3,7 +3,7 @@
 namespace App\Entity\Lokr;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\IncidentRepository;
+use App\Repository\Lokr\IncidentRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

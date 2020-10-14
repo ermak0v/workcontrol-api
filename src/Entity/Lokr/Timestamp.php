@@ -11,6 +11,7 @@ trait Timestamp
      * @ORM\Column(type="datetime")
     */
     private \DateTimeInterface $createdAt;
+
     /**
      * @var \DateTimeInterface
      * @ORM\Column(type="datetime", nullable=true)
@@ -32,6 +33,4 @@ trait Timestamp
         $this->updateAt = $updateAt;
         return $this;
     }
-
-
 }

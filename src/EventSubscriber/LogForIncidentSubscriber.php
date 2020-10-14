@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
-class LogForIncident implements EventSubscriberInterface
+class LogForIncidentSubscriber implements EventSubscriberInterface
 {
     private EntityManagerInterface $entityManager;
     private Security $security;
@@ -23,12 +23,14 @@ class LogForIncident implements EventSubscriberInterface
         $this->entityManager = $entityManager;
         $this->security = $security;
     }
+
     public static function getSubscribedEvents()
     {
         return [
             KernelEvents::VIEW => ['log', EventPriorities::POST_WRITE],
         ];
     }
+
     public function log(ViewEvent $event): void
     {
         $incident = $event->getControllerResult();

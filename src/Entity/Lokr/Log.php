@@ -3,7 +3,7 @@
 namespace App\Entity\Lokr;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\LogRepository;
+use App\Repository\Lokr\LogRepository;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 use App\Controller\LogsUpdateModerate;

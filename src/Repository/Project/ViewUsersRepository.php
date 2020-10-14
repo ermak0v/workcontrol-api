@@ -1,22 +1,24 @@
 <?php
 
-namespace App\Repository;
 
-use App\Entity\Lokr\Criterion;
+namespace App\Repository\Project;
+
+
+use App\Entity\Project\ViewUsers;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Criterion|null find($id, $lockMode = null, $lockVersion = null)
- * @method Criterion|null findOneBy(array $criteria, array $orderBy = null)
- * @method Criterion[]    findAll()
- * @method Criterion[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ViewUsers|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ViewUsers|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ViewUsers[]    findAll()
+ * @method ViewUsers[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CriterionRepository extends ServiceEntityRepository
+class ViewUsersRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Criterion::class);
+        parent::__construct($registry, ViewUsers::class);
     }
 
     // /**
